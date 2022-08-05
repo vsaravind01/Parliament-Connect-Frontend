@@ -1,16 +1,21 @@
 import React from "react";
 import Home from "./pages/Home";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { orange } from "@mui/material/colors";
 
 const theme = createTheme({
 	palette: {
-		primary: {
-			main: "#ffc77d",
-		},
-		secondary: {
-			main: "#ee0290",
-		},
+		type: "dark",
+		// primary: {
+		// 	main: "#F28444",
+		// },
+		// secondary: {
+		// 	main: "#388e3c",
+		// },
+		special: {
+			main: orange[900]
+		}
 	},
 });
 

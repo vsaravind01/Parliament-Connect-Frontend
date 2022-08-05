@@ -12,25 +12,23 @@ export default function SabhaFilter() {
 		<Card sx={{ mx: 2, mt: 2 }} variant="outlined">
 			<CardContent>
 				<FormControl component="fieldset" color="secondary">
-					<FormLabel component="legend" sx={{ pl: 2 }}>
-						Sabha
-					</FormLabel>
-					<FormGroup column>
+					<FormLabel component="legend" color="primary">Sabha</FormLabel>
+					<FormGroup>
 						<FormControlLabel
 							value="lok_sabha"
 							control={
-								<Checkbox color="secondary" disableRipple />
+								<Checkbox color="secondary" />
 							}
 							label="Lok Sabha"
-							labelPlacement="start"
+							labelPlacement="end"
 						/>
 						<FormControlLabel
 							value="rajya_sabha"
 							control={
-								<Checkbox color="secondary" disableRipple />
+								<Checkbox color="secondary" />
 							}
 							label="Rajya Sabha"
-							labelPlacement="start"
+							labelPlacement="end"
 						/>
 					</FormGroup>
 				</FormControl>
