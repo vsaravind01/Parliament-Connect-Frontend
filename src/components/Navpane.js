@@ -14,6 +14,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
 import SabhaFilter from "./sabhaFilter";
 
 const drawerWidth = 240;
@@ -32,7 +33,7 @@ function ResponsiveDrawer(props) {
 			<Divider />
 			<List>
 				<ListItem disablePadding>
-					<ListItemButton>
+					<ListItemButton component={Link} to="/search">
 						<ListItemIcon>
 							<SearchIcon />
 						</ListItemIcon>
@@ -53,6 +54,7 @@ function ResponsiveDrawer(props) {
 			<CssBaseline />
 			<AppBar
 				position="fixed"
+				elevation={2}
 				sx={{
 					width: { sm: `calc(100% - ${drawerWidth}px)` },
 					ml: { sm: `${drawerWidth}px` },
