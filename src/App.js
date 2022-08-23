@@ -1,30 +1,50 @@
 import React from "react";
-import Search from "./pages/Search";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import { Routes, Route } from "react-router-dom";
-import { ThemeProvider, CssBaseline } from "@material-ui/core";
+import { ThemeProvider } from "@mui/material/styles";
 import { createTheme } from "@material-ui/core/styles";
-import PrivateRouter from "./components/Security/PrivateRouter";
-// import { orange } from "@mui/material/colors";
+import { AuthProvider } from "./context/auth/authContext";
+import Routes from "./Routes";
+import CssBaseline from "@mui/material/CssBaseline";
 
 const App = () => {
 	const [darkMode, setDarkMode] = React.useState(false);
 	const theme = createTheme({
 		palette: {
-			type: darkMode ? "dark" : "light",
+			common: {
+				black: "#000",
+				white: "#fff",
+			},
+			background: {
+				paper: "#fff",
+				default: "hsl(329deg 100% 97%)",
+			},
+			primary: {
+				main: "#d7508f",
+				contrastText: "hsl(329deg 100% 97%)",
+			},
+			secondary: {
+				main: "hsl(264deg 76% 39%)",
+				contrastText: "hsl(329deg 100% 97%)",
+			},
+			action: {
+				disabled: "rgba(0, 0, 0, 0.38)",
+			},
+			lightText: {
+				main: "hsl(329deg 100% 97%)",
+			},
+			text: {
+				primary: "rgba(0, 0, 0, 0.87)",
+				secondary: "rgba(0, 0, 0, 0.54)",
+				disabled: "rgba(0, 0, 0, 0.38)",
+				hint: "rgba(0, 0, 0, 0.38)",
+			},
+			type: "light",
 		},
 	});
 	return (
 		<ThemeProvider theme={theme}>
-			<CssBaseline />
-			<Routes>
-				<Route path="/" element={<PrivateRouter />}>
-					<Route path="search" element={<Search />} />
-				</Route>
-				<Route exact path="/login" element={<Login />} />
-				<Route exact path="/register" element={<Register />} />
-			</Routes>
+			<AuthProvider>
+				<Routes />
+			</AuthProvider>
 		</ThemeProvider>
 	);
 };

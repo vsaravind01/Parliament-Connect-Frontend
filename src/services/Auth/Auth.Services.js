@@ -1,5 +1,7 @@
 import axios from "axios";
-const API_URL = "http://192.168.29.246:5500/api/auth/";
+import Routes from "../Routes/routes.config";
+
+const API_URL = `${Routes.backend}/api/auth/`;
 
 let axiosConfig = {
 	withCredentials: true,
@@ -7,7 +9,7 @@ let axiosConfig = {
 
 class AuthService {
 	async signup(data) {
-		return await axios.post(API_URL + "register", data, axiosConfig);
+		return await axios.post(API_URL + "signup", data, axiosConfig);
 	}
 	async login(data) {
 		return await axios.post(API_URL + "login", data, axiosConfig);
@@ -17,6 +19,9 @@ class AuthService {
 	}
 	async authorize() {
 		return await axios.get(API_URL + "authorize", axiosConfig);
+	}
+	async changePassword(data) {
+		return await axios.post(API_URL + "change_password", data, axiosConfig);
 	}
 	async test(data) {
 		return await axios.post("http://localhost:5500/api/admin/test", data, axiosConfig);

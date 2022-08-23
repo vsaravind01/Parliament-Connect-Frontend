@@ -5,22 +5,21 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import CircularProgress from "@mui/material/CircularProgress";
 import IconButton from "@mui/material/IconButton";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import Button from "@mui/material/Button";
-import Alert from "@mui/material/Alert";
+import ErrorDialog from "./ErrorDialog";
+import Routes from "../services/Routes/routes.config";
+import AdminServices from "../services/Admin/Admin.Services";
+
+const Admin = new AdminServices();
 
 export default function SearchBar(props) {
 	const { searchFunc } = props;
 
 	const [open, setOpen] = React.useState(false);
 	const [error, setError] = React.useState(false);
-	const [dialogOpen, setDialogOpen] = React.useState(false);
 	const [options, setOptions] = React.useState([]);
 	const valueRef = React.useRef("");
+
+	const searchEngine = Routes.searchEngine;
 
 	const [sabhaVersion, setSabhaVersion] = React.useState({
 		lok_sabha: true,
@@ -29,36 +28,21 @@ export default function SearchBar(props) {
 		rajya_sabha_version: "",
 	});
 
+	const [current_lok_sabhaVersion, set_Current_lok_sabhaVersion] = React.useState("");
+	const [current_rajya_sabhaVersion, set_Current_rajya_sabhaVersion] = React.useState("");
+
+	React.useEffect(() => {
+		(async () => {
+			const currentSabha = await Admin.get_current_sabha_version();
+
+			set_Current_lok_sabhaVersion(currentSabha.data.result[0].lok_sabha);
+			set_Current_rajya_sabhaVersion(currentSabha.data.result[0].rajya_sabha);
+		})();
+	}, []);
+
 	const loading = open && options.length === 0;
 
-	const handleDialogOpen = () => {
-		setDialogOpen(true);
-	};
-
-	const handleDialogClose = () => {
-		setDialogOpen(false);
-	};
-
-	const alert = (
-		<Dialog
-			open={dialogOpen}
-			onClose={handleDialogOpen}
-			aria-labelledby="alert-dialog-title"
-			aria-describedby="alert-dialog-description"
-		>
-			<DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
-			<DialogContent>
-				<DialogContentText id="alert-dialog-description">
-					Connection Error. Please check your internet connection.
-				</DialogContentText>
-			</DialogContent>
-			<DialogActions>
-				<Button onClick={handleDialogClose} autoFocus>
-					Okay
-				</Button>
-			</DialogActions>
-		</Dialog>
-	);
+	const alert = <ErrorDialog title="Connection Error" message="Check your internet connection." />;
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
@@ -75,14 +59,14 @@ export default function SearchBar(props) {
 		}
 
 		(async () => {
-			const response = await fetch("http://192.168.29.246:8080/recents", {
+			const response = await fetch(`${searchEngine}/recents`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 					"Access-Control-Allow-Origin": "*",
 				},
 				body: JSON.stringify({
-					index: "lok_sabha_17_test",
+					index: `lok_sabha_${current_lok_sabhaVersion},rajya_sabha_${current_rajya_sabhaVersion}`,
 				}),
 			});
 			const data = await response.json();
@@ -114,7 +98,7 @@ export default function SearchBar(props) {
 	};
 
 	const autoSuggest = async (event, value) => {
-		fetch(`http://192.168.29.246:8080/suggest`, {
+		fetch(`${searchEngine}/suggest`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -122,7 +106,7 @@ export default function SearchBar(props) {
 			},
 			body: JSON.stringify({
 				query: value,
-				index: "lok_sabha_17_test",
+				index: "lok_sabha_*,rajya_sabha_*",
 				size: 10,
 			}),
 		})
@@ -137,7 +121,7 @@ export default function SearchBar(props) {
 				}
 			})
 			.catch((err) => {
-				console.log("set");
+				console.log(err);
 				setError(true);
 			});
 	};
@@ -150,11 +134,11 @@ export default function SearchBar(props) {
 				justifyContent: "center",
 			}}
 		>
-			{error ? { alert } : <></>}
+			{error && alert}
 			<Autocomplete
 				id="search_bar"
 				freeSolo
-				sx={{ width: "90%" }}
+				sx={{ width: "100%", borderRadius: 10 }}
 				open={open}
 				autoComplete
 				onClose={() => {
@@ -178,20 +162,40 @@ export default function SearchBar(props) {
 				renderInput={(params) => (
 					<TextField
 						{...params}
-						color=""
-						label="Search"
+						autoFocus={true}
+						placeholder="Search"
+						variant="standard"
 						inputRef={valueRef}
 						onKeyDown={keypress}
+						sx={{
+							pl: 3,
+							pr: 2,
+							height: 55,
+							":hover": {
+								border: "1px solid #ccc",
+								backgroundColor: "#ffffff",
+							},
+							":focus": {
+								backgroundColor: "#ffffff",
+							},
+							backgroundColor: "#fffbfd",
+							borderRadius: "25px",
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
+							border: "1px solid #e0e0e0",
+						}}
 						InputProps={{
 							...params.InputProps,
+							disableUnderline: true,
 							endAdornment: (
 								<React.Fragment>
 									{loading ? <CircularProgress color="primary" size={20} /> : null}
 									{params.InputProps.endAdornment}
 									<IconButton
-										color="success"
 										onClick={handleSubmit}
 										sx={{
+											color: "blue",
 											"&& .MuiTouchRipple-rippleVisible": {
 												animationDuration: "200ms",
 											},
