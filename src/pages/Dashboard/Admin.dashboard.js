@@ -1,12 +1,10 @@
 import React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
-import MpSVG from "../../static/images/mpSVG.svg";
 import { Link } from "react-router-dom";
 import CardHeader from "@mui/material/CardHeader";
 
@@ -64,7 +62,7 @@ export default function AdminDashboard() {
 							/>
 							<Button
 								component={Link}
-								to="/answer"
+								to="/register"
 								variant="contained"
 								color="primary"
 								sx={{
@@ -78,16 +76,33 @@ export default function AdminDashboard() {
 						</CardContent>
 					</Card>
 				</Grid>
-				<Grid item xs={4}>
-					<Card>
-						<CardContent>
-							<Typography variant="h4" component="h2">
-								View Questions
-							</Typography>
-							<Typography variant="body2" component="p">
-								View questions in the system.
-							</Typography>
-							<Button variant="contained" color="primary">
+				<Grid item md={4} sx={{ width: "100%" }}>
+					<Card sx={{ height: "100%", width: "100%" }}>
+						<CardContent
+							sx={{
+								height: "100%",
+								display: "flex",
+								flexDirection: "column",
+								justifyContent: "space-around",
+							}}
+						>
+							<CardHeader
+								sx={{ width: "90%" }}
+								className="noselect"
+								title={`Unanswered Questions`}
+								subheader="View the unanswered questions"
+							/>
+							<Button
+								component={Link}
+								to="/all/unanswered"
+								variant="contained"
+								color="primary"
+								sx={{
+									"&& .MuiTouchRipple-rippleVisible": {
+										animationDuration: "250ms",
+									},
+								}}
+							>
 								Go
 							</Button>
 						</CardContent>

@@ -4,9 +4,6 @@ import Container from "@mui/material/Container";
 import UnansweredQuestions from "./UnansweredQuestions";
 import AuthContext from "../../context/auth/authContext";
 import Typography from "@mui/material/Typography";
-import AdminServices from "../../services/Admin/Admin.Services";
-
-const Admin = new AdminServices();
 
 export default function AnswerQuestion() {
 	const { authState } = React.useContext(AuthContext);

@@ -15,7 +15,7 @@ import QuestionAnswerRoundedIcon from "@mui/icons-material/QuestionAnswerRounded
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { logout } from "../utils/logout";
 import AuthContext from "../context/auth/authContext";
@@ -45,11 +45,15 @@ function ResponsiveDrawer(props) {
 					}}
 				>
 					<Link to="/" style={{ textDecoration: "none" }}>
-						<Typography variant="button" color="text.primary">
-							EPACS
-						</Typography>
+						<Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+							<img width={25} src="/epacs-logo-without-text.png" alt="logo" />
+
+							<Typography variant="button" color="text.primary">
+								EPACS
+							</Typography>
+						</Box>
 					</Link>
-					<Typography sx={{ m: 0 }} variant="caption" color="text.secondary">
+					<Typography sx={{ ml: 3, mr: 0, mt: 0, mb: 0 }} variant="caption" color="text.secondary">
 						v1
 					</Typography>
 				</Box>

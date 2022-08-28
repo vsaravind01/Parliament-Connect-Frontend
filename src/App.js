@@ -1,9 +1,9 @@
 import React from "react";
 import { ThemeProvider } from "@mui/material/styles";
-import { createTheme } from "@material-ui/core/styles";
+import { createTheme } from "@mui/material/styles";
 import { AuthProvider } from "./context/auth/authContext";
-import Routes from "./Routes";
 import CssBaseline from "@mui/material/CssBaseline";
+import Routes from "./Routes";
 
 const App = () => {
 	const [darkMode, setDarkMode] = React.useState(false);
@@ -43,6 +43,7 @@ const App = () => {
 	return (
 		<ThemeProvider theme={theme}>
 			<AuthProvider>
+				<CssBaseline />
 				<Routes />
 			</AuthProvider>
 		</ThemeProvider>

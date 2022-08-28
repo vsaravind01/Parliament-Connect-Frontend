@@ -101,6 +101,9 @@ export default function Suggestions({
 									subject={hit._source.subject}
 									question={hit._source.question}
 									sabha={formatSabha(hit._index)}
+									score={hit._score}
+									index={hit._index}
+									doc={hit._id}
 									answer={hit._source.answer}
 									mp={hit._source.mp}
 									ministry={hit._source.ministry}

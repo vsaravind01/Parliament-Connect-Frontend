@@ -4,6 +4,7 @@ import PollMaker from "../../components/pollMaker";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
+import React from "react";
 
 export default function PollMakerPage() {
 	return (

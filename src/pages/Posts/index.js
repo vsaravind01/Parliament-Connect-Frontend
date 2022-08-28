@@ -2,7 +2,6 @@ import React from "react";
 import MainLayout from "../MainLayout";
 import Container from "@mui/material/Container";
 import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
@@ -11,10 +10,11 @@ import Box from "@mui/material/Box";
 export default function PostsPage() {
 	return (
 		<MainLayout mediumScreenSize={12}>
-			<Container maxWidth="lg" sx={{ height: "100%" }}>
+			<Container maxWidth="md" sx={{ height: "100%" }}>
 				<Box sx={{ display: "flex", justifyContent: "center", gap: 5 }}>
 					<Card
 						sx={{
+							p: 3,
 							width: "100%",
 							display: "flex",
 							justifyContent: "center",
@@ -31,6 +31,7 @@ export default function PostsPage() {
 					</Card>
 					<Card
 						sx={{
+							p: 3,
 							width: "100%",
 							display: "flex",
 							justifyContent: "center",

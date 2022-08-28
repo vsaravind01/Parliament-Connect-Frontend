@@ -3,12 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@ckeditor/ckeditor5-build-classic": "^35.0.1",
-    "@ckeditor/ckeditor5-react": "^5.0.2",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
     "@internationalized/date": "^3.0.1",
-    "@material-ui/core": "^4.12.4",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.9.2",
     "@mui/styles": "^5.9.3",
@@ -22,33 +19,32 @@
     "date-fns": "^2.29.1",
     "downshift": "^6.1.9",
     "html-to-text": "^8.2.1",
-    "jodit-react": "^1.3.13",
     "moment": "^2.29.4",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-date-range": "^1.4.0",
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.3.0",
-    "react-scripts": "^5.0.1",
+    "react-scripts": "^2.1.3",
     "suneditor": "^2.43.14",
     "suneditor-react": "^3.4.1",
     "validator": "^13.7.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "HOST=0.0.0.0 react-scripts start",
+    "start": "PORT=4200 HOST=0.0.0.0 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "proxy": "http://localhost:3000",
   "homepage": ".",
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
+	"eslintConfig": {
+		"extends": [
+			"react-app",
+			"react-app/jest"
+		]
+	},
   "browserslist": {
     "production": [
       ">0.2%",

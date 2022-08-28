@@ -4,6 +4,9 @@ import Routes from "../Routes/routes.config";
 const API_URL = `${Routes.backend}/api/auth/`;
 
 let axiosConfig = {
+	headers: {
+		"Content-Type": "application/json",
+	},
 	withCredentials: true,
 };
 

@@ -1,3 +1,5 @@
+import React from "react";
+
 export default function SearchSVG({ primary, ...rest }) {
 	return (
 		<svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 643 447.57029" {...rest}>

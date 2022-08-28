@@ -10,10 +10,8 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -32,7 +30,6 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import CloseIcon from "@mui/icons-material/Close";
 import Stack from "@mui/material/Stack";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import Slide from "@mui/material/Slide";
 import TextField from "@mui/material/TextField";
 import TagsInput from "../../components/TagsInput";
@@ -250,7 +247,6 @@ export default function PollMakerPage() {
 			.catch((err) => {
 				setDeleteDialogOpen(false);
 				setEditDialogOpen(false);
-				console.log(err);
 			})
 			.finally(() => {
 				setLoading(false);
@@ -260,11 +256,15 @@ export default function PollMakerPage() {
 	React.useEffect(() => {
 		setLoading(true);
 		(async () => {
-			const res = await Admin.getAllUserPosts();
-			setPosts(res.data.posts);
-			setExpanded(res.data.posts.map((_) => false));
-			setLoading(false);
-			console.log(res);
+			try {
+				const res = await Admin.getAllUserPosts();
+				setPosts(res.data.posts);
+				setExpanded(res.data.posts.map((_) => false));
+				setLoading(false);
+				console.log(res);
+			} catch (err) {
+				console.log(err);
+			}
 		})();
 	}, []);
 

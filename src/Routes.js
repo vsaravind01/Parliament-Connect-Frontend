@@ -18,8 +18,8 @@ import PostsPage from "./pages/Posts";
 import CreatePost from "./pages/Posts/CreatePost";
 import PostsTimeline from "./pages/Posts/PreviousPosts";
 import AnswerQuestion from "./pages/AnswerQuestion";
-import UnansweredQuestionsPanel from "./pages/MpQuestions/UnansweredQuestions";
-import AuthContext from "./context/auth/authProvider";
+import UserUnansweredQuestionsPanel from "./pages/MpQuestions/UnansweredQuestions";
+import AdminAnsweredQuestionsPanel from "./pages/UnansweredQuestionsAdmin";
 
 export default function Router() {
 	return (
@@ -42,7 +42,8 @@ export default function Router() {
 				<Route path="posts/create" element={<CreatePost />} />
 				<Route path="posts/timeline" element={<PostsTimeline />} />
 				<Route path="answer" element={<AnswerQuestion />} />
-				<Route path="unanswered" element={<UnansweredQuestionsPanel />} />
+				<Route path="/mp/unanswered" element={<UserUnansweredQuestionsPanel />} />
+				<Route path="/all/unanswered" element={<AdminAnsweredQuestionsPanel />} />
 			</Route>
 			<Route path="*" element={<PageNotFound />} />
 		</Routes>

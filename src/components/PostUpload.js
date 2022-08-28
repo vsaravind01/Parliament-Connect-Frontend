@@ -1,17 +1,12 @@
 import React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import CardHeader from "@mui/material/CardHeader";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import { Link } from "react-router-dom";
-import CardMedia from "@mui/material/CardMedia";
 import TextField from "@mui/material/TextField";
-import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import TagsInput from "./TagsInput";
-import FormHelperText from "@mui/material/FormHelperText";
 import Typography from "@mui/material/Typography";
 import AdminServices from "../services/Admin/Admin.Services";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -109,7 +104,6 @@ export default function PostUpload() {
 						variant="outlined"
 						id="tags"
 						name="tags"
-						placeholder="Add tags"
 						label="Tags"
 					/>
 					<Stack sx={{ my: 3, alignItems: "center" }} direction="row" spacing={2}>

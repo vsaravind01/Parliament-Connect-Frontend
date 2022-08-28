@@ -1,7 +1,6 @@
 const auth_routes = {
 	searchEngine: "http://13.233.174.140:80",
-	// searchEngine: "http://0.0.0.0:8080",
-	backend: "http://0.0.0.0:5500",
+	backend: "http://3.110.127.44:4000",
 };
 
 export default auth_routes;

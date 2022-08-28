@@ -25,7 +25,7 @@ export default function MpSearchBar({ setMinistry, setID }) {
 		return () => {
 			active = false;
 		};
-	});
+	}, []);
 
 	return (
 		<Autocomplete

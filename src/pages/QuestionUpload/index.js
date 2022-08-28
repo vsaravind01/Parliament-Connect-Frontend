@@ -11,16 +11,12 @@ import StepLabel from "@mui/material/StepLabel";
 import Container from "@mui/material/Container";
 import Suggestions from "../../components/suggestions";
 import UploadPanel from "../../components/uploadPanel";
-import IndexingServices from "../../services/Indexing/Indexing.Services";
 import SuccessDialogue from "../../components/SuccessDialogue";
 import ErrorDialog from "../../components/ErrorDialog";
 import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
 import AdminServices from "../../services/Admin/Admin.Services";
 import CircularProgress from "@mui/material/CircularProgress";
-import FormLabel from "@mui/material/FormLabel";
 import AuthContext from "../../context/auth/authContext";
 
 const steps = ["Brief loop up", "Suggestions", "Upload your question"];
@@ -114,6 +110,7 @@ export default function QuestionUpload() {
 					setLoading(false);
 				})
 				.catch((err) => {
+					console.log(err);
 					setError(true);
 					setLoading(false);
 				});

@@ -6,8 +6,10 @@ import IconButton from "@mui/material/IconButton";
 import { Link } from "react-router-dom";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import Tooltip from "@mui/material/Tooltip";
+import authContext from "../../context/auth/authContext";
 
 export default function PostsPage() {
+	const { authState } = React.useContext(authContext);
 	return (
 		<MainLayout mediumScreenSize={12}>
 			<Tooltip title="Go to posts dashboard" placement="right" sx={{ mb: 2 }}>

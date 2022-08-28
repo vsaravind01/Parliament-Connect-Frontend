@@ -3,7 +3,6 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
-import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
@@ -16,7 +15,6 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import AuthManager from "../services/Auth/Auth.Services";
 import FormHelperText from "@mui/material/FormHelperText";
 import ErrorDialog from "./ErrorDialog";
-import AuthContext from "../context/auth/authContext";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import MpSearchBar from "./MpSearchBar";
@@ -59,10 +57,6 @@ export default function RegisterInput() {
 	// Error state to enable or disable the submit button
 	const [error, setError] = React.useState(true);
 	const [role, setRole] = React.useState("MP");
-
-	// Navigation hook
-	const navigate = useNavigate();
-	const { setAuthState } = React.useContext(AuthContext);
 
 	const Auth = new AuthManager();
 

@@ -45,6 +45,7 @@ const EditPostDialog = ({ close, question }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (answer.length > 0) {
+			setLoading(true);
 			Admin.uploadAnswer({ id: question._id, index: question._index, answer, styled_answer })
 				.then((res) => {
 					setSetAlert({ open: true, message: "Answered uploaded successfully", severity: "success" });
@@ -121,9 +122,35 @@ const EditPostDialog = ({ close, question }) => {
 				</Container>
 			</DialogContent>
 			<DialogActions>
-				<Button variant="contained" onClick={handleSubmit} color="primary">
-					Save
-				</Button>
+				<Box sx={{ m: 1, position: "relative" }}>
+					{loading && (
+						<CircularProgress
+							size={24}
+							sx={{
+								position: "absolute",
+								top: "50%",
+								left: "50%",
+								marginTop: "-12px",
+								marginLeft: "-12px",
+							}}
+						/>
+					)}
+					<Button
+						disabled={loading}
+						type="submit"
+						color="secondary"
+						disableElevation={true}
+						variant="contained"
+						onClick={handleSubmit}
+						sx={{
+							"&& .MuiTouchRipple-rippleVisible": {
+								animationDuration: "250ms",
+							},
+						}}
+					>
+						Create
+					</Button>
+				</Box>
 				<Button onClick={close} color="primary">
 					Close
 				</Button>

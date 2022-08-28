@@ -13,11 +13,27 @@ const Admin = new AdminServices();
 
 export default function SearchBar(props) {
 	const { searchFunc } = props;
+	const { valueRef } = props;
+
+	const handleKeyPress = React.useCallback((event) => {
+		if (event.key === "/") {
+			valueRef.current.focus();
+		}
+	}, []);
+
+	React.useEffect(() => {
+		// attach the event listener
+		document.addEventListener("keyup", handleKeyPress);
+
+		// remove the event listener
+		return () => {
+			document.removeEventListener("keyup", handleKeyPress);
+		};
+	}, [handleKeyPress]);
 
 	const [open, setOpen] = React.useState(false);
 	const [error, setError] = React.useState(false);
 	const [options, setOptions] = React.useState([]);
-	const valueRef = React.useRef("");
 
 	const searchEngine = Routes.searchEngine;
 

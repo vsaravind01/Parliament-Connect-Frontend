@@ -23,4 +23,8 @@ export default class SearchServices {
 	async getIndicesWithCount(data) {
 		return await axios.get(API_URL + "/get/indices_with_count");
 	}
+
+	async getAllUnansweredQuestions(index) {
+		return await axios.get(API_URL + "/get/questions/unanswered/" + index);
+	}
 }

@@ -1,6 +1,5 @@
 import { DateRangePicker } from "react-date-range";
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -8,10 +7,13 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
+import Checkbox from "@mui/material/Checkbox";
 import { addDays } from "date-fns";
+import Stack from "@mui/material/Stack";
 import { useState } from "react";
+import React from "react";
 
-export default function DateRange({ setStartDate, setEndDate }) {
+export default function DateRange({ isDateRange, setIsDateRange, setStartDate, setEndDate }) {
 	const [state, setState] = useState([
 		{
 			startDate: addDays(new Date(), -7),
@@ -63,8 +65,9 @@ export default function DateRange({ setStartDate, setEndDate }) {
 	};
 
 	return (
-		<div>
-			<Button variant="outlined" color="primary" onClick={handleClickOpen}>
+		<Stack direction="row" spacing={2}>
+			<Checkbox onClick={() => setIsDateRange(!isDateRange)} color="secondary" />
+			<Button fullWidth variant="outlined" color="primary" onClick={handleClickOpen}>
 				Date Range
 			</Button>
 			<Dialog open={open} onClose={handleClose}>
@@ -87,6 +90,6 @@ export default function DateRange({ setStartDate, setEndDate }) {
 					<Button onClick={setDate}>Apply</Button>
 				</DialogActions>
 			</Dialog>
-		</div>
+		</Stack>
 	);
 }

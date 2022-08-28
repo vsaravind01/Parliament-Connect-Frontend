@@ -1,8 +1,6 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
-import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
-import Button from "@mui/material/Button";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Collapse from "@mui/material/Collapse";
@@ -15,6 +13,10 @@ import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import LocalActivityRoundedIcon from "@mui/icons-material/LocalActivityRounded";
 import Box from "@mui/material/Box";
+import Avatar from "@mui/material/Avatar";
+import { green, red } from "@mui/material/colors";
+import Paper from "@mui/material/Paper";
+import Tooltip from "@mui/material/Tooltip";
 
 const ExpandMore = styled((props) => {
 	const { expand, ...other } = props;
@@ -31,6 +33,9 @@ const pattern = /(\d{2})\.(\d{2})\.(\d{4})/;
 
 export default function Results(props) {
 	const [expanded, setExpanded] = React.useState(false);
+	let score = props.score;
+	score = score * 100;
+	score = Math.round(score);
 	const { subject, question, answer, qid, mp, ministry, answered_on, type, sabha } = props;
 	const date = answered_on
 		? new Date(answered_on.replace(pattern, "$3-$2-$1")).toLocaleDateString("en-US", {
@@ -39,78 +44,124 @@ export default function Results(props) {
 				year: "numeric",
 		  })
 		: "Not yet answered";
+	const avatar_color = sabha[0] === "l" ? green[500] : red[500];
 	const handleExpandClick = () => {
 		setExpanded(!expanded);
 	};
 
 	return (
-		<Card sx={{ marginLeft: "auto", marginRight: "auto", mb: 6, width: "100%" }} variant="outlined">
+		<Paper
+			sx={{ marginLeft: "auto", marginRight: "auto", mb: 3, width: "100%", borderRadius: 5 }}
+			variant="elevation"
+			elevation={24}
+		>
 			<Grid item md={12}>
-				<CardHeader title={qid} subheader={date} />
+				<CardHeader
+					avatar={
+						<Avatar sx={{ bgcolor: avatar_color }} aria-label="recipe">
+							{mp[0]}
+						</Avatar>
+					}
+					style={{ display: "flex" }}
+					action={
+						<Stack direction="row" sx={{ alignItems: "center" }}>
+							<Paper
+								variant="outlined"
+								sx={{
+									backgroundColor: "#ebebeb",
+									textAlign: "center",
+									width: "fit-content",
+									borderRadius: 5,
+									height: "fit-content",
+								}}
+							>
+								<Typography
+									sx={{ px: 1 }}
+									style={{ textTransform: "capitalize" }}
+									variant="subtitle2"
+									color="text.secondary"
+								>
+									{score}%
+								</Typography>
+							</Paper>
+							{type === "STARRED" && (
+								<Box>
+									<Tooltip title="Starred Question">
+										<Typography sx={{ pr: 2, pt: 1, pl: 1 }} variant="h6" color="primary">
+											<LocalActivityRoundedIcon color="error" />
+										</Typography>
+									</Tooltip>
+								</Box>
+							)}
+						</Stack>
+					}
+					title={mp}
+					subheader={date}
+				/>
 				<CardContent sx={{ width: "100%" }}>
-					<Box sx={{ display: "flex", justifyContent: "space-between" }}>
+					<Box
+						sx={{
+							display: "flex",
+							flexDirection: { md: "row", xs: "column" },
+							justifyContent: "space-between",
+						}}
+					>
 						<Stack direction="row" spacing={1}>
 							<Typography variant="h6" color="secondary">
 								{subject}
 							</Typography>
-							{type === "STARRED" && (
-								<Typography variant="h6" color="primary">
-									<LocalActivityRoundedIcon sx={{ mt: "18%" }} color="error" />
-								</Typography>
-							)}
 						</Stack>
-						<Box>
-							<Typography style={{ textTransform: "capitalize" }} variant="body1" color="textSecondary">
-								{sabha}
-							</Typography>
+						<Box sx={{ display: "flex", alignItems: "center", ml: 0.5 }}>
+							<Paper
+								variant="outlined"
+								sx={{
+									backgroundColor: "#ebebeb",
+									textAlign: "center",
+									width: "fit-content",
+									borderRadius: 5,
+								}}
+							>
+								<Typography
+									sx={{ px: 1 }}
+									style={{ textTransform: "capitalize" }}
+									variant="subtitle2"
+									color="text.secondary"
+								>
+									{sabha}
+								</Typography>
+							</Paper>
 						</Box>
 					</Box>
-					<Stack sx={{ mt: 2 }} direction={{ md: "row", sm: "column" }} spacing={2}>
-						<Button
-							variant="outlined"
-							sx={{
-								display: "flex",
-								justifyContent: "flex-start",
-								width: "100%",
-								height: "100%",
-								"&& .MuiTouchRipple-rippleVisible": {
-									animationDuration: "250ms",
-								},
-							}}
-						>
-							<Typography variant="button" color="text.primary">
-								MP
-							</Typography>
-							<Typography variant="body2" color="text.secondary" sx={{ ml: "5px " }}>
-								{mp}
-							</Typography>
-						</Button>
-
-						<Button
-							variant="outlined"
-							sx={{
-								display: "flex",
-								mt: 1,
-								justifyContent: "flex-start",
-								width: "100%",
-								height: "100%",
-								"&& .MuiTouchRipple-rippleVisible": {
-									animationDuration: "250ms",
-								},
-							}}
-						>
-							<Typography variant="button" color="text.primary">
-								Ministry
-							</Typography>
-							<Typography variant="body1" color="text.secondary" sx={{ ml: "5px " }}>
+					<Paper
+						sx={{ mt: 1, display: "flex", verticalAlign: "center", py: 0.5, borderRadius: 5 }}
+						variant="outlined"
+					>
+						<Box sx={{ display: "flex", alignItems: "center", ml: 0.5 }}>
+							<Paper
+								variant="outlined"
+								sx={{
+									backgroundColor: "#ebebeb",
+									textAlign: "center",
+									width: "fit-content",
+									borderRadius: 5,
+								}}
+							>
+								<Typography sx={{ px: 1 }} variant="subtitle2" color="text.secondary">
+									Ministry
+								</Typography>
+							</Paper>
+							<Typography sx={{ pl: 1, textAlign: "center" }} variant="body2" color="text.primary">
 								{ministry}
 							</Typography>
-						</Button>
-					</Stack>
+						</Box>
+					</Paper>
 				</CardContent>
 			</Grid>
 			<CardActions disableSpacing>
 				<IconButton
+					target="_blank"
+					href={`http://0.0.0.0:8080/generate_pdf/${props.index}/${props.doc}`}
+					rel="noopener noreferrer"
 					aria-label="share"
 					sx={{
 						"&& .MuiTouchRipple-rippleVisible": {
@@ -118,8 +169,11 @@ export default function Results(props) {
 						},
 					}}
 				>
-					<ShareIcon />
+					<Tooltip title="Share" placement="bottom-end">
+						<ShareIcon />
+					</Tooltip>
 				</IconButton>
+
 				<ExpandMore
 					expand={expanded}
 					onClick={handleExpandClick}
@@ -131,7 +185,9 @@ export default function Results(props) {
 						},
 					}}
 				>
-					<ExpandMoreIcon />
+					<Tooltip title="View Answer">
+						<ExpandMoreIcon />
+					</Tooltip>
 				</ExpandMore>
 			</CardActions>
 			<Collapse in={expanded} timeout="auto" unmountOnExit>
@@ -151,6 +207,6 @@ export default function Results(props) {
 					<Typography paragraph>{answer}</Typography>
 				</CardContent>
 			</Collapse>
-		</Card>
+		</Paper>
 	);
 }

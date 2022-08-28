@@ -3,6 +3,13 @@ export function formatSabha(term) {
 	return terms[0] + " " + terms[1] + " " + terms[2];
 }
 
+/* Formats date and time to universal datetime format
+ * -@params : datetime:string, time:string
+ * -@returns : <formatted datetime>:string
+ *
+ * sample datetime : 2022-08-24T12:33:02.052Z
+ * time : HH:DD:SS
+ * formatted datetime - date part of datetime + time + ".000Z"*/
 export function DateFormatter(dateTime, time) {
 	const date = new Date(dateTime);
 	let day = date.getDate();
@@ -14,7 +21,7 @@ export function DateFormatter(dateTime, time) {
 		month = "0" + month;
 	}
 	const year = date.getFullYear();
-	const formattedDate = year + "-" + month + "-" + date;
+	const formattedDate = year + "-" + month + "-" + day;
 	const formattedTime = time + ".000Z";
 	return formattedDate + "T" + formattedTime;
 }

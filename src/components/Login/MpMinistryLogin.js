@@ -22,6 +22,7 @@ import MinistrySearchBar from "../MinistrySearchBar";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Divider from "@mui/material/Divider";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function LoginInput() {
 	const [values, setValues] = React.useState({
@@ -39,6 +40,8 @@ export default function LoginInput() {
 
 	const [error, setError] = React.useState(true);
 	const { setAuthState } = React.useContext(AuthContext);
+
+	const [loading, setLoading] = React.useState(false);
 
 	const [mode, setMode] = React.useState("MP");
 
@@ -105,6 +108,7 @@ export default function LoginInput() {
 			usernameError: "",
 			passwordError: "",
 		});
+		setLoading(true);
 		Auth.login({ uname: values.username, password: values.password, role: mode, ref_id: ref_id })
 			.then((res) => {
 				if (res.data.status === "success") {
@@ -145,6 +149,9 @@ export default function LoginInput() {
 						unknownErrorMessage: "Oops! an unknown error has been occurred.",
 					});
 				}
+			})
+			.finally(() => {
+				setLoading(false);
 			});
 	};
 
@@ -296,21 +303,35 @@ export default function LoginInput() {
 							spacing={3}
 						>
 							<FormControl variant="outlined" component={Box}>
-								<Button
-									type="submit"
-									disabled={error}
-									color="secondary"
-									disableElevation={true}
-									variant="contained"
-									onClick={handleOnClick}
-									sx={{
-										"&& .MuiTouchRipple-rippleVisible": {
-											animationDuration: "250ms",
-										},
-									}}
-								>
-									Sign In
-								</Button>
+								<Box sx={{ m: 1, position: "relative" }}>
+									{loading && (
+										<CircularProgress
+											size={24}
+											sx={{
+												position: "absolute",
+												top: "50%",
+												left: "50%",
+												marginTop: "-12px",
+												marginLeft: "-12px",
+											}}
+										/>
+									)}
+									<Button
+										disabled={error || loading}
+										type="submit"
+										color="secondary"
+										disableElevation={true}
+										variant="contained"
+										onClick={handleOnClick}
+										sx={{
+											"&& .MuiTouchRipple-rippleVisible": {
+												animationDuration: "250ms",
+											},
+										}}
+									>
+										Sign in
+									</Button>
+								</Box>
 							</FormControl>
 						</Stack>
 					</form>

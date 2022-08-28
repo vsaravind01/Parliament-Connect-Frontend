@@ -1,7 +1,4 @@
 import CardContent from "@mui/material/CardContent";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
-import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -34,9 +31,9 @@ export default function SabhaFilter({
 	}
 
 	React.useEffect(() => {
-		setLokSabhaVersion(localStorage.getItem("lok_sabha_version") || "");
+		setLokSabhaVersion(localStorage.getItem("lok_sabha_version") || "*");
 		setLokSabha(localStorage.getItem("lok_sabha") === "true");
-		setRajyaSabhaVersion(localStorage.getItem("rajya_sabha_version") || "");
+		setRajyaSabhaVersion(localStorage.getItem("rajya_sabha_version") || "*");
 		setRajyaSabha(localStorage.getItem("rajya_sabha") === "true");
 
 		(async () => {

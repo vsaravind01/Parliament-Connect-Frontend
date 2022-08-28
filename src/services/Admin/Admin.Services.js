@@ -87,4 +87,8 @@ export default class AdminServices {
 	async uploadAnswer(data) {
 		return await axios.post(API_URL + "v2/parliament/answer", data, axiosConfig);
 	}
+
+	async deleteQuestion(data) {
+		return await axios.post(API_URL + "v2/parliament/question/delete", data, axiosConfig);
+	}
 }
